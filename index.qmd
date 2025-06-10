@@ -1,11 +1,11 @@
 ---
-title: "Project Title"
+title: "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset"
 subtitle: "INFO 526 - Summer 2024 - Final Project"
 author: 
-  - name: "Team name"
+  - name: "Aesthetic Plotters"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "This project explores the ecological and morphological diversity of palm species using the PalmTraits 1.0 dataset, a comprehensive collection of trait data for 2,539 palm species curated by Kissling et al. (2019). By leveraging data visualization techniques in R with ggplot2 and related packages, we aim to uncover patterns and insights about trait variation across species, growth forms, and biogeographical regions."
 format:
    html:
     code-tools: true

@@ -2,11 +2,11 @@ project:
   type: website
 
 website:
-  title: Project Title
+  title: Palms & Plots
   navbar:
     right:
       - icon: github
-        href: https://github.com/INFO-526-SU24/project-01 # Needs to be changed to your project repo
+        href: https://github.com/INFO-526-SU25/final-project-maddineni8193
     left:
       - text: Project
         href: index.qmd
