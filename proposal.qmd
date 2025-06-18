@@ -5,7 +5,7 @@ author:
   - name: "Aesthetic plotters"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: ""
+description: "his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits."
 format:
   html:
     code-tools: true
@@ -42,7 +42,7 @@ palm_tree_data <- tidytuesdayR::tt_load(2025, week = 11)
 palmtrees <- palm_tree_data$palmtrees
 
 #Read raw data from csv file which is accessed from github repository
-palmtrees <- readr::read_csv('"data/palmtrees.csv"')
+palmtrees <- readr::read_csv('data/palmtrees.csv')
 ```
 
 The dataset we are using in this project is from the PalmTraits 1.0 database via the palmtrees R package by Emil Hvitfeldt. The dataset featured in March 18, 2025 TidyTuesday release and was originally published in the journel "PalmTraits 1.0, a species-level functional trait database of palms worldwide" by Kissling, W.D., Balslev, H., Baker, W.J. *et al* (2019). The dataset contains `r nrow(palmtrees)` rows and `r ncol(palmtrees)` columns. The dataset comes with a wide range of variables, the variables we will be using to analyse are :
