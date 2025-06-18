@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aesthetic plotters">
+<meta name="description" content="his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.">
 
 <title>Palms &amp; Plots: Visualizing Trait Diversity in Palm Tree Dataset – Palms &amp; Plots</title>
 <style>
@@ -4084,6 +4085,11 @@ vertical-align: -.125em;
 <p class="subtitle lead">INFO 526 - Summer 2025 - Final Project</p>
 </div>
 
+<div>
+  <div class="description">
+    his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.
+  </div>
+</div>
 
 <div class="quarto-title-meta-author">
   <div class="quarto-title-meta-heading">Author</div>
@@ -4131,7 +4137,7 @@ vertical-align: -.125em;
 <span id="cb2-5"><a href="#cb2-5"></a>palmtrees <span class="ot">&lt;-</span> palm_tree_data<span class="sc">$</span>palmtrees</span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="co">#Read raw data from csv file which is accessed from github repository</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>palmtrees <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8"></a>palmtrees <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;data/palmtrees.csv&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The dataset we are using in this project is from the PalmTraits 1.0 database via the palmtrees R package by Emil Hvitfeldt. The dataset featured in March 18, 2025 TidyTuesday release and was originally published in the journel “PalmTraits 1.0, a species-level functional trait database of palms worldwide” by Kissling, W.D., Balslev, H., Baker, W.J. <em>et al</em> (2019). The dataset contains 2557 rows and 29 columns. The dataset comes with a wide range of variables, the variables we will be using to analyse are :</p>
 <div class="cell">
@@ -4187,27 +4193,27 @@ vertical-align: -.125em;
 </div>
 <section id="importance-of-choosing-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="importance-of-choosing-the-dataset"><strong>Importance of choosing the dataset</strong></h3>
-<p>The database with its wide variety variables allows some rich comparative analysis and explanations. We have chosen this dataset as it exhibits some strong combination of biological significance, trait diversity, and visual capability. Its mix of categorical and continuous traits across thousands of species provides a meaningful opportunity to explore ecological patterns using effective data visualization. Additionally, its structure is well-suited to address research questions involving trait co-occurrence and plant strategy trade-offs—making it an ideal chose.</p>
+<p>The database with its wide variety variables allows some rich comparative analysis and explanations. We have chosen this dataset as it exhibits some strong combination of biological significance, trait diversity, and visual capability. Its mix of categorical and continuous traits across thousands of species provides a meaningful opportunity to explore ecological patterns using effective data visualization. Additionally, its structure is well-suited to address research questions involving trait co-occurrence and plant strategy trade-offs—making it an ideal choice.</p>
 </section>
 </section>
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <p>The two questions you want to answer are:<br>
-<strong>Question 1</strong>: How does the structural form of palm trees relate to their fruit size and visibility?<br>
-<strong>Question 2</strong>: Do leaf and stem defense traits (e.g., armature/spines) co-occur with climbing or erect growth habits?</p>
+<strong>Question 1</strong>: How does the structural form of palm trees like stem height relate to their fruit traits such as size and visibility?<br>
+<strong>Question 2</strong>: Do leaf and stem defense traits like spines on leaves or stems co-occur with climbing or erect growth habits?</p>
 </section>
 <section id="analysis-plan" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-plan">Analysis plan</h2>
 <section id="approach-for-question-1" class="level3">
 <h3 class="anchored" data-anchor-id="approach-for-question-1"><strong>Approach for question 1</strong></h3>
-<p>To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. This will help us to examine the spread, central tendency, and density of tree heights using data from different trait group.</p>
+<p>To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit is to potential animal dispersers. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.</p>
 <p>Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.</p>
 <p>The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.</p>
-<p>By using violin plots, we can observe the median heights and also the variability in height within each category. This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</p>
+<p>By using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We’ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</p>
 </section>
 <section id="approach-for-question-2" class="level3">
 <h3 class="anchored" data-anchor-id="approach-for-question-2"><strong>Approach for question 2</strong></h3>
-<p>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiaage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</p>
+<p>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</p>
 <p>We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.</p>
 <p>We will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.<br>
 <br>
@@ -4731,7 +4737,7 @@ Heat map visualization will help us identify whether climbing palms are more or 
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co">  - name: &quot;Aesthetic plotters&quot;</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">    affiliations:</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">      - name: &quot;School of Information, University of Arizona&quot;</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="an">description:</span><span class="co"> &quot;&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="an">description:</span><span class="co"> &quot;his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.&quot;</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="an">format:</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">  html:</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">    code-tools: true</span></span>
@@ -4768,77 +4774,79 @@ Heat map visualization will help us identify whether climbing palms are more or 
 <span id="cb3-44"><a href="#cb3-44"></a>palmtrees <span class="ot">&lt;-</span> palm_tree_data<span class="sc">$</span>palmtrees</span>
 <span id="cb3-45"><a href="#cb3-45"></a></span>
 <span id="cb3-46"><a href="#cb3-46"></a><span class="co">#Read raw data from csv file which is accessed from github repository</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a>palmtrees <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv&#39;</span>)</span>
+<span id="cb3-47"><a href="#cb3-47"></a>palmtrees <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;data/palmtrees.csv&#39;</span>)</span>
 <span id="cb3-48"><a href="#cb3-48"></a><span class="in">```</span></span>
 <span id="cb3-49"><a href="#cb3-49"></a></span>
 <span id="cb3-50"><a href="#cb3-50"></a>The dataset we are using in this project is from the PalmTraits 1.0 database via the palmtrees R package by Emil Hvitfeldt. The dataset featured in March 18, 2025 TidyTuesday release and was originally published in the journel &quot;PalmTraits 1.0, a species-level functional trait database of palms worldwide&quot; by Kissling, W.D., Balslev, H., Baker, W.J. *et al* (2019). The dataset contains <span class="in">`r nrow(palmtrees)`</span> rows and <span class="in">`r ncol(palmtrees)`</span> columns. The dataset comes with a wide range of variables, the variables we will be using to analyse are :</span>
 <span id="cb3-51"><a href="#cb3-51"></a></span>
 <span id="cb3-52"><a href="#cb3-52"></a><span class="in">```{r palm_variable_table, echo=FALSE}</span></span>
-<span id="cb3-53"><a href="#cb3-53"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb3-54"><a href="#cb3-54"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb3-55"><a href="#cb3-55"></a></span>
-<span id="cb3-56"><a href="#cb3-56"></a><span class="fu">tibble</span>(</span>
-<span id="cb3-57"><a href="#cb3-57"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
-<span id="cb3-58"><a href="#cb3-58"></a>    <span class="st">&quot;max_stem_height_m&quot;</span>, </span>
-<span id="cb3-59"><a href="#cb3-59"></a>    <span class="st">&quot;fruit_size_categorical&quot;</span>, </span>
-<span id="cb3-60"><a href="#cb3-60"></a>    <span class="st">&quot;conspicuousness&quot;</span>, </span>
-<span id="cb3-61"><a href="#cb3-61"></a>    <span class="st">&quot;climbing&quot;</span>, </span>
-<span id="cb3-62"><a href="#cb3-62"></a>    <span class="st">&quot;leaves_armed&quot;</span>, </span>
-<span id="cb3-63"><a href="#cb3-63"></a>    <span class="st">&quot;stem_armed&quot;</span></span>
-<span id="cb3-64"><a href="#cb3-64"></a>  ),</span>
-<span id="cb3-65"><a href="#cb3-65"></a>  <span class="at">Class =</span> <span class="fu">c</span>(</span>
-<span id="cb3-66"><a href="#cb3-66"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>max_stem_height_m)[<span class="dv">1</span>],</span>
-<span id="cb3-67"><a href="#cb3-67"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>fruit_size_categorical)[<span class="dv">1</span>],</span>
-<span id="cb3-68"><a href="#cb3-68"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>conspicuousness)[<span class="dv">1</span>],</span>
-<span id="cb3-69"><a href="#cb3-69"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>climbing)[<span class="dv">1</span>],</span>
-<span id="cb3-70"><a href="#cb3-70"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>leaves_armed)[<span class="dv">1</span>],</span>
-<span id="cb3-71"><a href="#cb3-71"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>stem_armed)[<span class="dv">1</span>]</span>
-<span id="cb3-72"><a href="#cb3-72"></a>  ),</span>
-<span id="cb3-73"><a href="#cb3-73"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
-<span id="cb3-74"><a href="#cb3-74"></a>    <span class="st">&quot;Maximum stem height in meters&quot;</span>,</span>
-<span id="cb3-75"><a href="#cb3-75"></a>    <span class="st">&quot;Fruit size category: small (&lt;4cm) or large (≥4cm)&quot;</span>,</span>
-<span id="cb3-76"><a href="#cb3-76"></a>    <span class="st">&quot;Fruit visibility: conspicuous (bright) or cryptic (dull)&quot;</span>,</span>
-<span id="cb3-77"><a href="#cb3-77"></a>    <span class="st">&quot;Growth habit: climbing or non-climbing&quot;</span>,</span>
-<span id="cb3-78"><a href="#cb3-78"></a>    <span class="st">&quot;Presence of spines on leaves&quot;</span>,</span>
-<span id="cb3-79"><a href="#cb3-79"></a>    <span class="st">&quot;Presence of spines on stem&quot;</span></span>
-<span id="cb3-80"><a href="#cb3-80"></a>  )</span>
-<span id="cb3-81"><a href="#cb3-81"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-82"><a href="#cb3-82"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Key Variables to be used in this project&quot;</span>)</span>
-<span id="cb3-83"><a href="#cb3-83"></a><span class="in">```</span></span>
-<span id="cb3-84"><a href="#cb3-84"></a></span>
-<span id="cb3-85"><a href="#cb3-85"></a><span class="fu">### **Importance of choosing the dataset**</span></span>
+<span id="cb3-53"><a href="#cb3-53"></a><span class="co">#Load necessary libraries</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb3-55"><a href="#cb3-55"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb3-56"><a href="#cb3-56"></a><span class="co"># Create a summary table of key variables</span></span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="fu">tibble</span>(</span>
+<span id="cb3-58"><a href="#cb3-58"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
+<span id="cb3-59"><a href="#cb3-59"></a>    <span class="st">&quot;max_stem_height_m&quot;</span>, </span>
+<span id="cb3-60"><a href="#cb3-60"></a>    <span class="st">&quot;fruit_size_categorical&quot;</span>, </span>
+<span id="cb3-61"><a href="#cb3-61"></a>    <span class="st">&quot;conspicuousness&quot;</span>, </span>
+<span id="cb3-62"><a href="#cb3-62"></a>    <span class="st">&quot;climbing&quot;</span>, </span>
+<span id="cb3-63"><a href="#cb3-63"></a>    <span class="st">&quot;leaves_armed&quot;</span>, </span>
+<span id="cb3-64"><a href="#cb3-64"></a>    <span class="st">&quot;stem_armed&quot;</span></span>
+<span id="cb3-65"><a href="#cb3-65"></a>  ),</span>
+<span id="cb3-66"><a href="#cb3-66"></a>  <span class="at">Class =</span> <span class="fu">c</span>(</span>
+<span id="cb3-67"><a href="#cb3-67"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>max_stem_height_m)[<span class="dv">1</span>],</span>
+<span id="cb3-68"><a href="#cb3-68"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>fruit_size_categorical)[<span class="dv">1</span>],</span>
+<span id="cb3-69"><a href="#cb3-69"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>conspicuousness)[<span class="dv">1</span>],</span>
+<span id="cb3-70"><a href="#cb3-70"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>climbing)[<span class="dv">1</span>],</span>
+<span id="cb3-71"><a href="#cb3-71"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>leaves_armed)[<span class="dv">1</span>],</span>
+<span id="cb3-72"><a href="#cb3-72"></a>    <span class="fu">class</span>(palmtrees<span class="sc">$</span>stem_armed)[<span class="dv">1</span>]</span>
+<span id="cb3-73"><a href="#cb3-73"></a>  ),</span>
+<span id="cb3-74"><a href="#cb3-74"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
+<span id="cb3-75"><a href="#cb3-75"></a>    <span class="st">&quot;Maximum stem height in meters&quot;</span>,</span>
+<span id="cb3-76"><a href="#cb3-76"></a>    <span class="st">&quot;Fruit size category: small (&lt;4cm) or large (≥4cm)&quot;</span>,</span>
+<span id="cb3-77"><a href="#cb3-77"></a>    <span class="st">&quot;Fruit visibility: conspicuous (bright) or cryptic (dull)&quot;</span>,</span>
+<span id="cb3-78"><a href="#cb3-78"></a>    <span class="st">&quot;Growth habit: climbing or non-climbing&quot;</span>,</span>
+<span id="cb3-79"><a href="#cb3-79"></a>    <span class="st">&quot;Presence of spines on leaves&quot;</span>,</span>
+<span id="cb3-80"><a href="#cb3-80"></a>    <span class="st">&quot;Presence of spines on stem&quot;</span></span>
+<span id="cb3-81"><a href="#cb3-81"></a>  )</span>
+<span id="cb3-82"><a href="#cb3-82"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-83"><a href="#cb3-83"></a>  <span class="co"># Adding table header</span></span>
+<span id="cb3-84"><a href="#cb3-84"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Key Variables to be used in this project&quot;</span>)</span>
+<span id="cb3-85"><a href="#cb3-85"></a><span class="in">```</span></span>
 <span id="cb3-86"><a href="#cb3-86"></a></span>
-<span id="cb3-87"><a href="#cb3-87"></a>The database with its wide variety variables allows some rich comparative analysis and explanations. We have chosen this dataset as it exhibits some strong combination of biological significance, trait diversity, and visual capability. Its mix of categorical and continuous traits across thousands of species provides a meaningful opportunity to explore ecological patterns using effective data visualization. Additionally, its structure is well-suited to address research questions involving trait co-occurrence and plant strategy trade-offs—making it an ideal chose.</span>
+<span id="cb3-87"><a href="#cb3-87"></a><span class="fu">### **Importance of choosing the dataset**</span></span>
 <span id="cb3-88"><a href="#cb3-88"></a></span>
-<span id="cb3-89"><a href="#cb3-89"></a><span class="fu">## Questions</span></span>
+<span id="cb3-89"><a href="#cb3-89"></a>The database with its wide variety variables allows some rich comparative analysis and explanations. We have chosen this dataset as it exhibits some strong combination of biological significance, trait diversity, and visual capability. Its mix of categorical and continuous traits across thousands of species provides a meaningful opportunity to explore ecological patterns using effective data visualization. Additionally, its structure is well-suited to address research questions involving trait co-occurrence and plant strategy trade-offs—making it an ideal choice.</span>
 <span id="cb3-90"><a href="#cb3-90"></a></span>
-<span id="cb3-91"><a href="#cb3-91"></a>The two questions you want to answer are:\</span>
-<span id="cb3-92"><a href="#cb3-92"></a>**Question 1**: How does the structural form of palm trees relate to their fruit size and visibility?\</span>
-<span id="cb3-93"><a href="#cb3-93"></a>**Question 2**: Do leaf and stem defense traits (e.g., armature/spines) co-occur with climbing or erect growth habits?</span>
-<span id="cb3-94"><a href="#cb3-94"></a></span>
-<span id="cb3-95"><a href="#cb3-95"></a><span class="fu">## Analysis plan</span></span>
+<span id="cb3-91"><a href="#cb3-91"></a><span class="fu">## Questions</span></span>
+<span id="cb3-92"><a href="#cb3-92"></a></span>
+<span id="cb3-93"><a href="#cb3-93"></a>The two questions you want to answer are:\</span>
+<span id="cb3-94"><a href="#cb3-94"></a>**Question 1**: How does the structural form of palm trees like stem height relate to their fruit traits such as size and visibility?\</span>
+<span id="cb3-95"><a href="#cb3-95"></a>**Question 2**: Do leaf and stem defense traits like spines on leaves or stems co-occur with climbing or erect growth habits?</span>
 <span id="cb3-96"><a href="#cb3-96"></a></span>
-<span id="cb3-97"><a href="#cb3-97"></a><span class="fu">### **Approach for question 1**</span></span>
+<span id="cb3-97"><a href="#cb3-97"></a><span class="fu">## Analysis plan</span></span>
 <span id="cb3-98"><a href="#cb3-98"></a></span>
-<span id="cb3-99"><a href="#cb3-99"></a>To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. This will help us to examine the spread, central tendency, and density of tree heights using data from different trait group.</span>
+<span id="cb3-99"><a href="#cb3-99"></a><span class="fu">### **Approach for question 1**</span></span>
 <span id="cb3-100"><a href="#cb3-100"></a></span>
-<span id="cb3-101"><a href="#cb3-101"></a>Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.</span>
+<span id="cb3-101"><a href="#cb3-101"></a>To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit is to potential animal dispersers. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.</span>
 <span id="cb3-102"><a href="#cb3-102"></a></span>
-<span id="cb3-103"><a href="#cb3-103"></a>The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.</span>
+<span id="cb3-103"><a href="#cb3-103"></a>Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.</span>
 <span id="cb3-104"><a href="#cb3-104"></a></span>
-<span id="cb3-105"><a href="#cb3-105"></a>By using violin plots, we can observe the median heights and also the variability in height within each category. This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</span>
+<span id="cb3-105"><a href="#cb3-105"></a>The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.</span>
 <span id="cb3-106"><a href="#cb3-106"></a></span>
-<span id="cb3-107"><a href="#cb3-107"></a><span class="fu">### **Approach for question 2**</span></span>
+<span id="cb3-107"><a href="#cb3-107"></a>By using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We&#39;ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</span>
 <span id="cb3-108"><a href="#cb3-108"></a></span>
-<span id="cb3-109"><a href="#cb3-109"></a>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiaage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</span>
+<span id="cb3-109"><a href="#cb3-109"></a><span class="fu">### **Approach for question 2**</span></span>
 <span id="cb3-110"><a href="#cb3-110"></a></span>
-<span id="cb3-111"><a href="#cb3-111"></a>We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.</span>
+<span id="cb3-111"><a href="#cb3-111"></a>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</span>
 <span id="cb3-112"><a href="#cb3-112"></a></span>
-<span id="cb3-113"><a href="#cb3-113"></a>We will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.\</span>
-<span id="cb3-114"><a href="#cb3-114"></a>\</span>
-<span id="cb3-115"><a href="#cb3-115"></a>The Heatmap will have &quot;climbing&quot; on one axis and the &quot;spine combination categories&quot; on the other. The fill color of each cell will reflect the &quot;frequency or relative proportion of species&quot; within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.\</span>
+<span id="cb3-113"><a href="#cb3-113"></a>We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.</span>
+<span id="cb3-114"><a href="#cb3-114"></a></span>
+<span id="cb3-115"><a href="#cb3-115"></a>We will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.\</span>
 <span id="cb3-116"><a href="#cb3-116"></a>\</span>
-<span id="cb3-117"><a href="#cb3-117"></a>Heat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses.</span>
+<span id="cb3-117"><a href="#cb3-117"></a>The Heatmap will have &quot;climbing&quot; on one axis and the &quot;spine combination categories&quot; on the other. The fill color of each cell will reflect the &quot;frequency or relative proportion of species&quot; within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.\</span>
+<span id="cb3-118"><a href="#cb3-118"></a>\</span>
+<span id="cb3-119"><a href="#cb3-119"></a>Heat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
