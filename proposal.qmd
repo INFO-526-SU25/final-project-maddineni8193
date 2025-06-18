@@ -42,15 +42,16 @@ palm_tree_data <- tidytuesdayR::tt_load(2025, week = 11)
 palmtrees <- palm_tree_data$palmtrees
 
 #Read raw data from csv file which is accessed from github repository
-palmtrees <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv')
+palmtrees <- readr::read_csv('"data/palmtrees.csv"')
 ```
 
 The dataset we are using in this project is from the PalmTraits 1.0 database via the palmtrees R package by Emil Hvitfeldt. The dataset featured in March 18, 2025 TidyTuesday release and was originally published in the journel "PalmTraits 1.0, a species-level functional trait database of palms worldwide" by Kissling, W.D., Balslev, H., Baker, W.J. *et al* (2019). The dataset contains `r nrow(palmtrees)` rows and `r ncol(palmtrees)` columns. The dataset comes with a wide range of variables, the variables we will be using to analyse are :
 
 ```{r palm_variable_table, echo=FALSE}
+#Load necessary libraries
 library(tibble)
 library(knitr)
-
+# Create a summary table of key variables
 tibble(
   Variable = c(
     "max_stem_height_m", 
@@ -77,34 +78,35 @@ tibble(
     "Presence of spines on stem"
   )
 ) |> 
+  # Adding table header
   kable(caption = "Key Variables to be used in this project")
 ```
 
 ### **Importance of choosing the dataset**
 
-The database with its wide variety variables allows some rich comparative analysis and explanations. We have chosen this dataset as it exhibits some strong combination of biological significance, trait diversity, and visual capability. Its mix of categorical and continuous traits across thousands of species provides a meaningful opportunity to explore ecological patterns using effective data visualization. Additionally, its structure is well-suited to address research questions involving trait co-occurrence and plant strategy trade-offs—making it an ideal chose.
+The database with its wide variety variables allows some rich comparative analysis and explanations. We have chosen this dataset as it exhibits some strong combination of biological significance, trait diversity, and visual capability. Its mix of categorical and continuous traits across thousands of species provides a meaningful opportunity to explore ecological patterns using effective data visualization. Additionally, its structure is well-suited to address research questions involving trait co-occurrence and plant strategy trade-offs—making it an ideal choice.
 
 ## Questions
 
 The two questions you want to answer are:\
-**Question 1**: How does the structural form of palm trees relate to their fruit size and visibility?\
-**Question 2**: Do leaf and stem defense traits (e.g., armature/spines) co-occur with climbing or erect growth habits?
+**Question 1**: How does the structural form of palm trees like stem height relate to their fruit traits such as size and visibility?\
+**Question 2**: Do leaf and stem defense traits like spines on leaves or stems co-occur with climbing or erect growth habits?
 
 ## Analysis plan
 
 ### **Approach for question 1**
 
-To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. This will help us to examine the spread, central tendency, and density of tree heights using data from different trait group.
+To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit is to potential animal dispersers. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.
 
 Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.
 
 The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.
 
-By using violin plots, we can observe the median heights and also the variability in height within each category. This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.
+By using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We'll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.
 
 ### **Approach for question 2**
 
-For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiaage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.
+For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.
 
 We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.
 
