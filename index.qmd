@@ -19,4 +19,59 @@ execute:
 
 ## Abstract
 
-Add project abstract here.
+```{r}
+# Load required libraries
+library(tidyverse)  # Includes dplyr and ggplot2
+library(ggridges)
+
+
+palm_tree_data <- tidytuesdayR::tt_load(2025, week = 11)
+palmtrees <- palm_tree_data$palmtrees
+
+
+palm_q1 <- palmtrees %>%
+  select(max_stem_height_m, fruit_size_categorical, conspicuousness) %>%
+  filter(
+    !is.na(max_stem_height_m),
+    !is.na(fruit_size_categorical),
+    !is.na(conspicuousness)
+  )
+
+ ggplot(palm_q1, aes(x = max_stem_height_m, y = fruit_size_categorical, fill = fruit_size_categorical)) +
+  geom_density_ridges(alpha = 0.7) +
+  labs(
+    title = "Height Distribution by Fruit Size Category",
+    x = "Maximum Stem Height (m)",
+    y = "Fruit Size Category"
+  )
+ 
+ ggplot(palm_q1, aes(x = max_stem_height_m, y = conspicuousness, fill = conspicuousness)) +
+  geom_density_ridges(alpha = 0.7) +
+  labs(
+    title = "Height Distribution by Fruit Conspicuousness",
+    x = "Maximum Stem Height (m)",
+    y = "Conspicuousness"
+  )
+ 
+ ggplot(palm_q1, aes(x = fruit_size_categorical, y = max_stem_height_m, fill = conspicuousness)) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  labs(
+    title = "Palm Height Distribution by Fruit Size and Conspicuousness",
+    x = "Fruit Size Category",
+    y = "Maximum Stem Height (m)",
+    fill = "Conspicuousness"
+  ) +
+  theme_minimal()
+ 
+ palm_q1 %>%
+  group_by(fruit_size_categorical, conspicuousness) %>%
+  summarise(
+    count = n(),
+    median_height = median(max_stem_height_m, na.rm = TRUE),
+    mean_height = mean(max_stem_height_m, na.rm = TRUE)
+  )
+
+
+
+
+```
