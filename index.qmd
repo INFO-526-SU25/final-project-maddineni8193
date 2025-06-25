@@ -12,9 +12,11 @@ format:
     code-overflow: wrap
     embed-resources: true
 editor: visual
-execute:
+execute :
   warning: false
-  echo: false
+  message: false
+  error: false
+toc: true
 ---
 
 ## Abstract
@@ -75,3 +77,9 @@ palm_q1 <- palmtrees %>%
 
 
 ```
+
+**Interpretation:**
+
+The ridge plots reveal that palms with large fruits and conspicuous fruits generally grow taller, with broader height distributions compared to those with small or cryptic fruits. The violin plot further shows that palms producing large, conspicuous fruits exhibit the greatest median heights and overall variability in stem height.
+
+These patterns suggest an ecological link between structural form and reproductive strategy, where taller palms may invest in larger, more visible fruits to enhance seed dispersal by attracting animal dispersers.
