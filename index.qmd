@@ -12,11 +12,9 @@ format:
     code-overflow: wrap
     embed-resources: true
 editor: visual
-execute :
+execute:
   warning: false
-  message: false
-  error: false
-toc: true
+  echo: false
 ---
 
 ## Abstract
