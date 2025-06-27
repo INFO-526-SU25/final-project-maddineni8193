@@ -19,6 +19,36 @@ execute:
 
 ## Abstract
 
+Question 1: Which palm traits exhibit the most variability across species, and how do fruit traits (size and conspicuousness) relate to stem height?\
+
+**Introduction**
+
+Palm trees are known for their remarkable structural diversity, ranging from short, shrubby species to towering tree-like forms. In addition to their physical structure, palms also display wide variation in their reproductive traits, including fruit size and fruit conspicuousness. These traits play an essential role in ecological processes such as seed dispersal, which contributes to the long-term survival and distribution of palm species.
+
+In this part of the project, we focus on exploring how the structural form of palm trees, specifically their maximum stem height, relates to key reproductive traits: fruit size and fruit conspicuousness. We aim to investigate whether taller palms are more likely to produce larger and more visible fruits, which could be an adaptive strategy to improve seed dispersal by attracting animal dispersers such as birds or mammals.
+
+To conduct this analysis, we work with a subset of the PalmTraits dataset, focusing only on the variables relevant to our research question. These include `max_stem_height_m` (maximum stem height), `fruit_size_categorical` (categorized as small or large), and `conspicuousness` (categorized as cryptic or conspicuous). We also ensure that any missing values are removed, resulting in a clean dataset suitable for visualization.
+
+We apply ridge plots to explore how palm height is distributed across different fruit size categories and levels of fruit conspicuousness. These plots help reveal whether there are noticeable differences in height between groups. In addition, we use a violin plot that combines both fruit size and conspicuousness, providing a more detailed view of how these two reproductive traits together relate to palm height.
+
+These visualizations allow us to identify potential patterns and ecological relationships between structural and reproductive traits in palms. By visually examining these connections, we can better understand how trait co-occurrence may reflect evolutionary strategies that improve seed dispersal and enhance reproductive success in palm species.
+
+**Approach**
+
+To explore the relationship between palm height and fruit traits, we use a visual analysis approach based on the PalmTraits dataset. Specifically, we investigate how maximum stem height (`max_stem_height_m`) relates to two key fruit traits: fruit size (`fruit_size_categorical`, categorized as small or large) and fruit conspicuousness (`conspicuousness`, categorized as cryptic or conspicuous).
+
+We begin by filtering the dataset to retain only the relevant variables and removing any records with missing values. This ensures that our analysis is based on clean, complete data. The three variables selected for this analysis—palm height, fruit size, and fruit conspicuousness—allow us to examine how reproductive traits may be associated with structural form.
+
+For visual exploration, we use ridge plots to compare the height distributions across different fruit size and conspicuousness groups. These plots provide an intuitive way to observe whether taller palms tend to produce larger or more visible fruits. We also create a violin plot that combines fruit size and conspicuousness to examine how these traits interact with palm height. The violin plot provides additional insight into the distribution and variability of height within each trait combination.
+
+This visual approach allows us to detect patterns and potential ecological relationships between reproductive and structural traits in palm species. While these visualizations do not establish causal relationships, they provide a valuable first step in understanding how trait co-occurrence may reflect ecological strategies and evolutionary trade-offs.
+
+### **Visualizations**
+
+To explore the relationship between palm height and fruit traits, we use ridge plots and a violin plot based on three key variables from the PalmTraits dataset: `max_stem_height_m` (maximum stem height), `fruit_size_categorical` (fruit size: small or large), and `conspicuousness` (fruit visibility: cryptic or conspicuous). The plots help reveal how palm height varies across different trait combinations.
+
+**Analysis**
+
 ```{r}
 # Load required libraries
 library(tidyverse)  # Includes dplyr and ggplot2
@@ -76,8 +106,24 @@ palm_q1 <- palmtrees %>%
 
 ```
 
-**Interpretation:**
+The ridge plots provide a clear visual comparison of how palm height varies with fruit size and fruit conspicuousness. In the first ridge plot, we observe that palms with large fruits tend to have greater stem heights compared to those with small fruits. The overall height distribution for large-fruited palms extends further, suggesting that larger fruits are more common in taller species.
 
-The ridge plots reveal that palms with large fruits and conspicuous fruits generally grow taller, with broader height distributions compared to those with small or cryptic fruits. The violin plot further shows that palms producing large, conspicuous fruits exhibit the greatest median heights and overall variability in stem height.
+A similar pattern is visible in the second ridge plot, which focuses on fruit conspicuousness. Palms with conspicuous (bright and easily visible) fruits generally show higher stem heights than those with cryptic (dull) fruits. This indicates that palms producing more visible fruits may also be taller, possibly to improve fruit visibility for animal seed dispersers.
 
-These patterns suggest an ecological link between structural form and reproductive strategy, where taller palms may invest in larger, more visible fruits to enhance seed dispersal by attracting animal dispersers.
+The violin plot, which combines both fruit size and conspicuousness, provides additional insight into how these traits interact with palm height. The tallest palms in the dataset tend to belong to the group with large, conspicuous fruits. This group not only shows greater median heights but also higher variability in stem height, compared to palms with small or cryptic fruits.
+
+### **Discussion**
+
+The results of our visual analysis reveal clear patterns suggesting that fruit traits and palm height are not independent but may be ecologically linked. The ridge plots show that palms with large fruits generally grow taller than those with small fruits. A similar pattern is observed for fruit conspicuousness, where palms producing conspicuous (bright, visible) fruits also tend to have greater stem heights compared to those with cryptic (dull) fruits. These trends support the idea that taller palms may invest in larger or more visible fruits as a reproductive strategy to enhance seed dispersal.
+
+The violin plot further strengthens this interpretation by combining both fruit size and conspicuousness in a single visualization. It clearly shows that palms with large, conspicuous fruits have the tallest median stem heights and the widest distribution of heights. In contrast, palms with small or cryptic fruits tend to be shorter on average. This suggests that reproductive and structural traits in palms may evolve together to maximize the chances of successful seed dispersal, particularly in taller species.
+
+These observed patterns align with ecological theories that propose trait co-occurrence as a response to environmental pressures. Taller palms face unique challenges in seed dispersal due to the increased distance between their fruits and potential animal dispersers. By producing larger and more visible fruits, these species may increase the likelihood that their seeds are detected and dispersed effectively, contributing to reproductive success and species persistence.
+
+It is important to note that while these visualizations reveal strong patterns, they do not confirm causal relationships. Further statistical analysis or field studies would be needed to test whether these observed trends hold across broader datasets or specific ecological contexts. Nonetheless, the clear patterns observed in our plots provide strong preliminary evidence that palm height, fruit size, and fruit conspicuousness are interconnected traits shaped by evolutionary and ecological factors.
+
+### **Conclusion**
+
+The visual patterns observed in this analysis suggest a clear ecological relationship between palm height and key reproductive traits. Taller palms tend to produce larger and more conspicuous fruits, likely as an adaptive strategy to enhance seed dispersal by attracting animal dispersers. These findings support the idea that structural and reproductive traits in palms may evolve together to maximize reproductive success.
+
+While this analysis provides valuable preliminary insights, it is based on visual exploration of the data. Additional statistical tests or ecological studies would be needed to confirm these patterns across broader populations and different environmental conditions. Nevertheless, the observed trends highlight the importance of considering trait co-occurrence when studying the ecology and evolution of palm species.
