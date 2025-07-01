@@ -1,9 +1,9 @@
 ---
 title: "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset"
-subtitle: "INFO 526 - Summer 2024 - Final Project"
+subtitle: "INFO 526 - Summer 2025 - Final Project"
 author: "Nilotpal Rajbongshi, Sravani Maddineni"
 title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-image: images/health-simple-green-plant-nature-clean-powerpoint-background_ac3022e634__960_540.avif
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -94,6 +94,62 @@ model |> glance()
 ## Plots
 
 ```{r}
+# Load required libraries
+library(tidyverse)  # Includes dplyr and ggplot2
+library(ggridges)
+
+
+palm_tree_data <- tidytuesdayR::tt_load(2025, week = 11)
+palmtrees <- palm_tree_data$palmtrees
+
+
+palm_q1 <- palmtrees %>%
+  select(max_stem_height_m, fruit_size_categorical, conspicuousness) %>%
+  filter(
+    !is.na(max_stem_height_m),
+    !is.na(fruit_size_categorical),
+    !is.na(conspicuousness)
+  )
+
+ ggplot(palm_q1, aes(x = max_stem_height_m, y = fruit_size_categorical, fill = fruit_size_categorical)) +
+  geom_density_ridges(alpha = 0.7) +
+  labs(
+    title = "Height Distribution by Fruit Size Category",
+    x = "Maximum Stem Height (m)",
+    y = "Fruit Size Category"
+  )
+ 
+ ggplot(palm_q1, aes(x = max_stem_height_m, y = conspicuousness, fill = conspicuousness)) +
+  geom_density_ridges(alpha = 0.7) +
+  labs(
+    title = "Height Distribution by Fruit Conspicuousness",
+    x = "Maximum Stem Height (m)",
+    y = "Conspicuousness"
+  )
+ 
+ ggplot(palm_q1, aes(x = fruit_size_categorical, y = max_stem_height_m, fill = conspicuousness)) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  labs(
+    title = "Palm Height Distribution by Fruit Size and Conspicuousness",
+    x = "Fruit Size Category",
+    y = "Maximum Stem Height (m)",
+    fill = "Conspicuousness"
+  ) +
+  theme_minimal()
+ 
+ palm_q1 %>%
+  group_by(fruit_size_categorical, conspicuousness) %>%
+  summarise(
+    count = n(),
+    median_height = median(max_stem_height_m, na.rm = TRUE),
+    mean_height = mean(max_stem_height_m, na.rm = TRUE)
+  )
+
+
+
+```
+
+```{r}
 penguins |>
   mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
   ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
@@ -136,7 +192,7 @@ penguins |>
 
 ## Images
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+![Image credit: Danielle Navarro, Percolate.](images/health-simple-green-plant-nature-clean-powerpoint-background_ac3022e634__960_540.avif){fig-align="center"}
 
 ## Math Expressions {.smaller}
 
