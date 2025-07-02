@@ -3,7 +3,7 @@ title: "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset"
 subtitle: "INFO 526 - Summer 2025 - Final Project"
 author: "Aesthetic Plotters - Nilotpal Rajbongshi, Sravani Maddineni"
 title-slide-attributes:
-  data-background-image: images/health-simple-green-plant-nature-clean-powerpoint-background_ac3022e634__960_540.jpg
+  data-background-image: images/palm_image.jpg
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
