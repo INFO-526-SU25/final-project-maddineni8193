@@ -5,7 +5,7 @@ author:
   - name: "Aesthetic plotters"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits."
+description: "This project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits."
 format:
   html:
     code-tools: true

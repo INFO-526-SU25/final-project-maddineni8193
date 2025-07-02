@@ -47,19 +47,60 @@ This visual approach allows us to detect patterns and potential ecological relat
 
 To explore the relationship between palm height and fruit traits, we use ridge plots and a violin plot based on three key variables from the PalmTraits dataset: `max_stem_height_m` (maximum stem height), `fruit_size_categorical` (fruit size: small or large), and `conspicuousness` (fruit visibility: cryptic or conspicuous). The plots help reveal how palm height varies across different trait combinations.
 
+```{r setup}
+if (!require("pacman")) 
+  install.packages("pacman")
+
+# use this line for installing/loading
+pacman::p_load(tidyverse,
+              ggridges,
+              gganimate)
+
+devtools::install_github("tidyverse/dsbox")
+```
+
+```{r}
+# Load local dataset (from your repo folder)
+palmtrees <- read_csv("data/palmtrees.csv", locale = locale(encoding = "Latin1"))
+
+# Unified cleaning and transformation for Q1 and Q2
+palmtrees_cleaned <- palmtrees %>%
+  filter(
+    !is.na(max_stem_height_m),
+    !is.na(fruit_size_categorical),
+    !is.na(conspicuousness),
+    !is.na(climbing),
+    !is.na(leaves_armed),
+    !is.na(stem_armed)
+  ) %>%
+  mutate(
+    # Create growth_form based on climbing
+    growth_form = case_when(
+      climbing == "climbing" ~ "Climbing",
+      climbing == "non-climbing" ~ "Erect",
+      climbing == "both" ~ "Mixed",
+      TRUE ~ NA_character_
+    ),
+    
+    # Create spine_combo based on leaf and stem armature
+    spine_combo = case_when(
+      leaves_armed == "armed" & stem_armed == "armed" ~ "Both Armed",
+      leaves_armed == "armed" & stem_armed == "non-armed" ~ "Leaf Only",
+      leaves_armed == "non-armed" & stem_armed == "armed" ~ "Stem Only",
+      leaves_armed == "non-armed" & stem_armed == "non-armed" ~ "Unarmed",
+      TRUE ~ NA_character_
+    ),
+    
+    # (Optional) Make the levels ordered for plotting consistency
+    growth_form = factor(growth_form, levels = c("Erect", "Climbing", "Mixed")),
+    spine_combo = factor(spine_combo, levels = c("Unarmed", "Leaf Only", "Stem Only", "Both Armed"))
+  )
+```
+
 **Analysis**
 
 ```{r}
-# Load required libraries
-library(tidyverse)  # Includes dplyr and ggplot2
-library(ggridges)
-
-
-palm_tree_data <- tidytuesdayR::tt_load(2025, week = 11)
-palmtrees <- palm_tree_data$palmtrees
-
-
-palm_q1 <- palmtrees %>%
+palm_q1 <- palmtrees_cleaned %>%
   select(max_stem_height_m, fruit_size_categorical, conspicuousness) %>%
   filter(
     !is.na(max_stem_height_m),
@@ -83,16 +124,22 @@ palm_q1 <- palmtrees %>%
     y = "Conspicuousness"
   )
  
- ggplot(palm_q1, aes(x = fruit_size_categorical, y = max_stem_height_m, fill = conspicuousness)) +
+violin_anim <- ggplot(palm_q1, aes(x = conspicuousness, y = max_stem_height_m, fill = conspicuousness)) +
   geom_violin(trim = FALSE, alpha = 0.7) +
   labs(
-    title = "Palm Height Distribution by Fruit Size and Conspicuousness",
-    x = "Fruit Size Category",
-    y = "Maximum Stem Height (m)",
-    fill = "Conspicuousness"
+    title = "Palm Height Distribution by Conspicuousness",
+    subtitle = "Fruit Size Category: {closest_state}",
+    x = "Fruit Conspicuousness",
+    y = "Max Stem Height (m)"
   ) +
-  theme_minimal()
- 
+  theme_minimal() +
+  transition_states(fruit_size_categorical, transition_length = 1, state_length = 0.5) +
+  ease_aes("sine-in-out")
+
+animate(violin_anim, fps = 2, width = 800, height = 500)
+anim_save("violin_conspicuousness.gif", animation = violin_anim)
+
+
  palm_q1 %>%
   group_by(fruit_size_categorical, conspicuousness) %>%
   summarise(
@@ -100,10 +147,6 @@ palm_q1 <- palmtrees %>%
     median_height = median(max_stem_height_m, na.rm = TRUE),
     mean_height = mean(max_stem_height_m, na.rm = TRUE)
   )
-
-
-
-
 ```
 
 The ridge plots provide a clear visual comparison of how palm height varies with fruit size and fruit conspicuousness. In the first ridge plot, we observe that palms with large fruits tend to have greater stem heights compared to those with small fruits. The overall height distribution for large-fruited palms extends further, suggesting that larger fruits are more common in taller species.
@@ -127,3 +170,54 @@ It is important to note that while these visualizations reveal strong patterns, 
 The visual patterns observed in this analysis suggest a clear ecological relationship between palm height and key reproductive traits. Taller palms tend to produce larger and more conspicuous fruits, likely as an adaptive strategy to enhance seed dispersal by attracting animal dispersers. These findings support the idea that structural and reproductive traits in palms may evolve together to maximize reproductive success.
 
 While this analysis provides valuable preliminary insights, it is based on visual exploration of the data. Additional statistical tests or ecological studies would be needed to confirm these patterns across broader populations and different environmental conditions. Nevertheless, the observed trends highlight the importance of considering trait co-occurrence when studying the ecology and evolution of palm species.
+
+```{r}
+df_heatmap <- palmtrees_cleaned %>%
+  filter(!is.na(climbing), !is.na(leaves_armed), !is.na(stem_armed)) %>%
+  mutate(
+    growth_form = case_when(
+      climbing == "climbing" ~ "Climbing",
+      climbing == "non-climbing" ~ "Erect",
+      climbing == "both" ~ "Mixed",
+      TRUE ~ NA_character_
+    ),
+    spine_combo = case_when(
+      leaves_armed == "armed" & stem_armed == "armed" ~ "Both Armed",
+      leaves_armed == "armed" & stem_armed == "non-armed" ~ "Leaf Only",
+      leaves_armed == "non-armed" & stem_armed == "armed" ~ "Stem Only",
+      leaves_armed == "non-armed" & stem_armed == "non-armed" ~ "Unarmed",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(growth_form), !is.na(spine_combo))
+
+df_count <- df_heatmap %>%
+  count(growth_form, spine_combo) %>%
+  group_by(growth_form) %>%
+  mutate(pct = n / sum(n)) %>%
+  ungroup()
+
+# Plot the heatmap
+ggplot(df_count, aes(x = spine_combo, y = growth_form, fill = pct)) +
+  geom_tile(color = "white", na.rm = FALSE) +
+  geom_text(aes(label = scales::percent(pct, accuracy = 1)), size = 4) +
+   scale_fill_gradient2(
+    low = "#2166AC", mid = "#FFFFBF", high = "#B2182B", midpoint = 0.5,
+    name = "Proportion", labels = scales::percent, na.value = "grey90"
+  ) +
+  labs(
+    title = "Co-occurrence of Spine Traits and Growth Form in Palms",
+    subtitle = "Species count and proportion by growth form and spine traits",
+    x = "Spine Trait Combination",
+    y = "Growth Forms"
+  ) +
+  theme_minimal() +
+  theme(
+  axis.text.x = element_text(angle = 25, hjust = 1, size = 12),
+  axis.text.y = element_text(size = 12),
+  plot.title = element_text(face = "bold", size = 16),
+  legend.position = "right"
+)
+
+
+```
