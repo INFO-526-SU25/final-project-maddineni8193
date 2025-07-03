@@ -1,6 +1,6 @@
 ---
 title: "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset"
-subtitle: "INFO 526 - Summer 2024 - Final Project"
+subtitle: "INFO 526 - Summer 2025 - Final Project"
 author: 
   - name: "Aesthetic Plotters"
     affiliations:
@@ -213,15 +213,19 @@ Finally, we visualized these co-occurrence patterns using a heatmap that display
 To explore the relationship between growth form and defense traits in palms, we use a heatmap based on three key variables from the PalmTraits dataset: growth_form (categorized as climbing, erect, or mixed), leaves_armed, and stem_armed. The two defense variables are combined into a single spine trait category (both armed, leaf only, stem only, unarmed), allowing us to summarize defense strategies.
 
 ```{r}
+# Filter the data to remove missing values for climbing and spine-related traits
 df_heatmap <- palmtrees_cleaned %>%
   filter(!is.na(climbing), !is.na(leaves_armed), !is.na(stem_armed)) %>%
+  # Create new categorical variables for growth form and spine combinations
   mutate(
+    # Classify growth form based on climbing trait
     growth_form = case_when(
       climbing == "climbing" ~ "Climbing",
       climbing == "non-climbing" ~ "Erect",
       climbing == "both" ~ "Mixed",
       TRUE ~ NA_character_
     ),
+    # Combine leaves_armed and stem_armed into a single spine_combo category
     spine_combo = case_when(
       leaves_armed == "armed" & stem_armed == "armed" ~ "Both Armed",
       leaves_armed == "armed" &
@@ -233,8 +237,11 @@ df_heatmap <- palmtrees_cleaned %>%
       TRUE ~ NA_character_
     )
   ) %>%
+  # Remove rows where the new variables are still NA
   filter(!is.na(growth_form), !is.na(spine_combo))
 
+# Count the number of species for each combination of growth form and spine traits
+# Then calculate the percentage within each growth form
 df_count <- df_heatmap %>%
   count(growth_form, spine_combo) %>%
   group_by(growth_form) %>%
