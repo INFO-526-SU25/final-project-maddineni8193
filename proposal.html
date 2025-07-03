@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aesthetic plotters">
-<meta name="description" content="his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.">
+<meta name="description" content="This project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.">
 
 <title>Palms &amp; Plots: Visualizing Trait Diversity in Palm Tree Dataset – Palms &amp; Plots</title>
 <style>
@@ -4072,6 +4072,7 @@ vertical-align: -.125em;
   <li><a href="#approach-for-question-1" id="toc-approach-for-question-1" class="nav-link" data-scroll-target="#approach-for-question-1"><strong>Approach for question 1</strong></a></li>
   <li><a href="#approach-for-question-2" id="toc-approach-for-question-2" class="nav-link" data-scroll-target="#approach-for-question-2"><strong>Approach for question 2</strong></a></li>
   </ul></li>
+  <li><a href="#plan-of-attack" id="toc-plan-of-attack" class="nav-link" data-scroll-target="#plan-of-attack">Plan of Attack</a></li>
   </ul>
 </nav>
     </div>
@@ -4087,7 +4088,7 @@ vertical-align: -.125em;
 
 <div>
   <div class="description">
-    his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.
+    This project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.
   </div>
 </div>
 
@@ -4199,20 +4200,22 @@ vertical-align: -.125em;
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <p>The two questions you want to answer are:<br>
-<strong>Question 1</strong>: How does the structural form of palm trees like stem height relate to their fruit traits such as size and visibility?<br>
-<strong>Question 2</strong>: Do leaf and stem defense traits like spines on leaves or stems co-occur with climbing or erect growth habits?</p>
+<strong>Question 1</strong>: Which palm traits exhibit the most variability across species, and how do fruit traits (size and conspicuousness) relate to stem height?<br>
+<strong>Question 2</strong>: Do defense traits like spines on leaves and stems co-occur with particular growth habits (climbing vs erect palms)?</p>
 </section>
 <section id="analysis-plan" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-plan">Analysis plan</h2>
 <section id="approach-for-question-1" class="level3">
 <h3 class="anchored" data-anchor-id="approach-for-question-1"><strong>Approach for question 1</strong></h3>
-<p>To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit is to potential animal dispersers. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.</p>
+<p>Traits related to reproduction (fruit size and visibility) are expected to show moderate to low variation, high variation for structural growth traits, and palms with larger or more conspicuous fruits will tend to be taller, potentially due to selective pressure for enhanced seed dispersal.</p>
+<p>For trait variability assessment we will create visual summaries with ridge plots for numeric traits and bar plots for categorical traits. To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.</p>
 <p>Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.</p>
 <p>The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.</p>
 <p>By using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We’ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</p>
 </section>
 <section id="approach-for-question-2" class="level3">
 <h3 class="anchored" data-anchor-id="approach-for-question-2"><strong>Approach for question 2</strong></h3>
+<p>Climbing palms are expected to exhibit fewer spine traits due to structural support from host plants, which may reduce herbivore exposure and the need for physical defenses.</p>
 <p>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</p>
 <p>We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.</p>
 <p>We will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.<br>
@@ -4220,11 +4223,183 @@ vertical-align: -.125em;
 The Heatmap will have “climbing” on one axis and the “spine combination categories” on the other. The fill color of each cell will reflect the “frequency or relative proportion of species” within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.<br>
 <br>
 Heat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses.</p>
+<p><br>
+</p>
+</section>
+</section>
+<section id="plan-of-attack" class="level2">
+<h2 class="anchored" data-anchor-id="plan-of-attack">Plan of Attack</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Task Name</th>
+<th>Assignee</th>
+<th>Status</th>
+<th>Due</th>
+<th>Priority</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prepare proposal questions</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-01-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li><p>Analysing all the datasets from 2025 Github repository.</p></li>
+<li><p>Make possible research questions out of those dataset.</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Finalize dataset &amp; research questions</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-09-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li><p>Selected the dataset <a href="https://www.nature.com/articles/s41597-019-0189-0">PalmTraits</a></p></li>
+<li><p>Two research questions are finalized</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Final Proposal Peer Review</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-13-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li><p>Sravani peer reviewed “A Statistical Exploration of Himalayan Expeditions”.</p></li>
+<li><p>Nilotpal peer reviewed “Crime in Arizona and Across the United States”.</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Edit proposal according to peer review</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-18-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li>Changes in the proposal according to the peer review by <a href="https://github.com/nathanielcross04">nathanielcross04</a> &amp; <a href="https://github.com/MattOsterhoudt">MattOsterhoudt</a>, and also considered certain points that are to be taken care of as we work further in the project.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Edit proposal according to instructor review</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-23-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li>Made changes to the questions and added hypotheses according to instructor review. Proposal file has been updated and all github issues created is moved to closed.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Cleaning the data, creating new variables</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-23-2025</td>
+<td>Moderate Priority</td>
+<td><ul>
+<li>Added code to clean the dataset</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Creating draft plots for question 1</td>
+<td>Sravani</td>
+<td>Completed</td>
+<td>06-24-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li>Created a draft plot for both visualizations</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Creating draft plots for question 2</td>
+<td>Nilotpal</td>
+<td>Completed</td>
+<td>06-24-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li>Created a draft plot for both visualizations</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Discussion on prepared graph</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-25-2025</td>
+<td>Low Priority</td>
+<td><ul>
+<li>Made changes in visual approach</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Clean up code, Improve graph</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>06-25-2025</td>
+<td>Moderate Priority</td>
+<td><ul>
+<li><p>Added animation to visualization and</p>
+<p>finalized headers and labels</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Analyze and write-up visualization report</td>
+<td>Sravani</td>
+<td>Completed</td>
+<td>06-27-2025</td>
+<td>Moderate Priority</td>
+<td><ul>
+<li>Write- ups completed</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Create PPT slides</td>
+<td>Nilotpal</td>
+<td>Completed</td>
+<td>06-27-2025</td>
+<td>Moderate Priority</td>
+<td><ul>
+<li>Presentation created and attached</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Record presentation</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>07-01-2025</td>
+<td>High Priority</td>
+<td><ul>
+<li>Recorded presentation</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Submit final presentation</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>07-02-2025</td>
+<td>Low Priority</td>
+<td><ul>
+<li><p>Submit all files to github and publish</p></li>
+<li><p>Include information in readme file</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Final Project Submission</td>
+<td>Nilotpal &amp; Sravani</td>
+<td>Completed</td>
+<td>07-02-2025</td>
+<td>Low Priority</td>
+<td>-do-</td>
+</tr>
+</tbody>
+</table>
 
 
 <!-- -->
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -4737,7 +4912,7 @@ Heat map visualization will help us identify whether climbing palms are more or 
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co">  - name: &quot;Aesthetic plotters&quot;</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">    affiliations:</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">      - name: &quot;School of Information, University of Arizona&quot;</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="an">description:</span><span class="co"> &quot;his project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="an">description:</span><span class="co"> &quot;This project aims to visualize how key biological traits shape the structural and ecological diversity of palm trees. We focus on two ecological questions, firstly, how fruit-related traits—size and visibility—influence the structural form of palms, measured via height; and secondly, whether palm defense traits—spines on leaves and stems—co-occur with growth form such as climbing versus erect habits.&quot;</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="an">format:</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">  html:</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">    code-tools: true</span></span>
@@ -4821,32 +4996,84 @@ Heat map visualization will help us identify whether climbing palms are more or 
 <span id="cb3-91"><a href="#cb3-91"></a><span class="fu">## Questions</span></span>
 <span id="cb3-92"><a href="#cb3-92"></a></span>
 <span id="cb3-93"><a href="#cb3-93"></a>The two questions you want to answer are:\</span>
-<span id="cb3-94"><a href="#cb3-94"></a>**Question 1**: How does the structural form of palm trees like stem height relate to their fruit traits such as size and visibility?\</span>
-<span id="cb3-95"><a href="#cb3-95"></a>**Question 2**: Do leaf and stem defense traits like spines on leaves or stems co-occur with climbing or erect growth habits?</span>
+<span id="cb3-94"><a href="#cb3-94"></a>**Question 1**: Which palm traits exhibit the most variability across species, and how do fruit traits (size and conspicuousness) relate to stem height?\</span>
+<span id="cb3-95"><a href="#cb3-95"></a>**Question 2**: Do defense traits like spines on leaves and stems co-occur with particular growth habits (climbing vs erect palms)?</span>
 <span id="cb3-96"><a href="#cb3-96"></a></span>
 <span id="cb3-97"><a href="#cb3-97"></a><span class="fu">## Analysis plan</span></span>
 <span id="cb3-98"><a href="#cb3-98"></a></span>
 <span id="cb3-99"><a href="#cb3-99"></a><span class="fu">### **Approach for question 1**</span></span>
 <span id="cb3-100"><a href="#cb3-100"></a></span>
-<span id="cb3-101"><a href="#cb3-101"></a>To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit is to potential animal dispersers. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.</span>
+<span id="cb3-101"><a href="#cb3-101"></a>Traits related to reproduction (fruit size and visibility) are expected to show moderate to low variation, high variation for structural growth traits, and palms with larger or more conspicuous fruits will tend to be taller, potentially due to selective pressure for enhanced seed dispersal.</span>
 <span id="cb3-102"><a href="#cb3-102"></a></span>
-<span id="cb3-103"><a href="#cb3-103"></a>Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.</span>
+<span id="cb3-103"><a href="#cb3-103"></a>For trait variability assessment we will create visual summaries with ridge plots for numeric traits and bar plots for categorical traits. To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.</span>
 <span id="cb3-104"><a href="#cb3-104"></a></span>
-<span id="cb3-105"><a href="#cb3-105"></a>The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.</span>
+<span id="cb3-105"><a href="#cb3-105"></a>Firstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.</span>
 <span id="cb3-106"><a href="#cb3-106"></a></span>
-<span id="cb3-107"><a href="#cb3-107"></a>By using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We&#39;ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</span>
+<span id="cb3-107"><a href="#cb3-107"></a>The violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.</span>
 <span id="cb3-108"><a href="#cb3-108"></a></span>
-<span id="cb3-109"><a href="#cb3-109"></a><span class="fu">### **Approach for question 2**</span></span>
+<span id="cb3-109"><a href="#cb3-109"></a>By using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We&#39;ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.</span>
 <span id="cb3-110"><a href="#cb3-110"></a></span>
-<span id="cb3-111"><a href="#cb3-111"></a>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</span>
+<span id="cb3-111"><a href="#cb3-111"></a><span class="fu">### **Approach for question 2**</span></span>
 <span id="cb3-112"><a href="#cb3-112"></a></span>
-<span id="cb3-113"><a href="#cb3-113"></a>We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.</span>
+<span id="cb3-113"><a href="#cb3-113"></a>Climbing palms are expected to exhibit fewer spine traits due to structural support from host plants, which may reduce herbivore exposure and the need for physical defenses.</span>
 <span id="cb3-114"><a href="#cb3-114"></a></span>
-<span id="cb3-115"><a href="#cb3-115"></a>We will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.\</span>
-<span id="cb3-116"><a href="#cb3-116"></a>\</span>
-<span id="cb3-117"><a href="#cb3-117"></a>The Heatmap will have &quot;climbing&quot; on one axis and the &quot;spine combination categories&quot; on the other. The fill color of each cell will reflect the &quot;frequency or relative proportion of species&quot; within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.\</span>
-<span id="cb3-118"><a href="#cb3-118"></a>\</span>
-<span id="cb3-119"><a href="#cb3-119"></a>Heat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses.</span>
+<span id="cb3-115"><a href="#cb3-115"></a>For the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.</span>
+<span id="cb3-116"><a href="#cb3-116"></a></span>
+<span id="cb3-117"><a href="#cb3-117"></a>We begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.</span>
+<span id="cb3-118"><a href="#cb3-118"></a></span>
+<span id="cb3-119"><a href="#cb3-119"></a>We will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.\</span>
+<span id="cb3-120"><a href="#cb3-120"></a>\</span>
+<span id="cb3-121"><a href="#cb3-121"></a>The Heatmap will have &quot;climbing&quot; on one axis and the &quot;spine combination categories&quot; on the other. The fill color of each cell will reflect the &quot;frequency or relative proportion of species&quot; within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.\</span>
+<span id="cb3-122"><a href="#cb3-122"></a>\</span>
+<span id="cb3-123"><a href="#cb3-123"></a>Heat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses.</span>
+<span id="cb3-124"><a href="#cb3-124"></a></span>
+<span id="cb3-125"><a href="#cb3-125"></a>\</span>
+<span id="cb3-126"><a href="#cb3-126"></a></span>
+<span id="cb3-127"><a href="#cb3-127"></a><span class="fu">## Plan of Attack</span></span>
+<span id="cb3-128"><a href="#cb3-128"></a></span>
+<span id="cb3-129"><a href="#cb3-129"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-130"><a href="#cb3-130"></a><span class="pp">|</span> Task Name                                    <span class="pp">|</span> Assignee           <span class="pp">|</span> Status    <span class="pp">|</span> Due        <span class="pp">|</span> Priority          <span class="pp">|</span> Summary                                                                                                                                                                                                                                                                       <span class="pp">|</span></span>
+<span id="cb3-131"><a href="#cb3-131"></a>+============================================<span class="al">==+====================+===========+============+===================+==</span>=============================================================================================================================================================================================================================================================================+</span>
+<span id="cb3-132"><a href="#cb3-132"></a><span class="pp">|</span> Prepare proposal questions                   <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-01-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Analysing all the datasets from 2025 Github repository.                                                                                                                                                                                                                   <span class="pp">|</span></span>
+<span id="cb3-133"><a href="#cb3-133"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span>                                                                                                                                                                                                                                                                               <span class="pp">|</span></span>
+<span id="cb3-134"><a href="#cb3-134"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span> -   Make possible research questions out of those dataset.                                                                                                                                                                                                                    <span class="pp">|</span></span>
+<span id="cb3-135"><a href="#cb3-135"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-136"><a href="#cb3-136"></a><span class="pp">|</span> Finalize dataset &amp; research questions        <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-09-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Selected the dataset <span class="co">[</span><span class="ot">PalmTraits</span><span class="co">](https://www.nature.com/articles/s41597-019-0189-0)</span>                                                                                                                                                                                      <span class="pp">|</span></span>
+<span id="cb3-137"><a href="#cb3-137"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span>                                                                                                                                                                                                                                                                               <span class="pp">|</span></span>
+<span id="cb3-138"><a href="#cb3-138"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span> -   Two research questions are finalized                                                                                                                                                                                                                                      <span class="pp">|</span></span>
+<span id="cb3-139"><a href="#cb3-139"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-140"><a href="#cb3-140"></a><span class="pp">|</span> Final Proposal Peer Review                   <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-13-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Sravani peer reviewed &quot;A Statistical Exploration of Himalayan Expeditions&quot;.                                                                                                                                                                                               <span class="pp">|</span></span>
+<span id="cb3-141"><a href="#cb3-141"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span>                                                                                                                                                                                                                                                                               <span class="pp">|</span></span>
+<span id="cb3-142"><a href="#cb3-142"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span> -   Nilotpal peer reviewed &quot;Crime in Arizona and Across the United States&quot;.                                                                                                                                                                                                   <span class="pp">|</span></span>
+<span id="cb3-143"><a href="#cb3-143"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-144"><a href="#cb3-144"></a><span class="pp">|</span> Edit proposal according to peer review       <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-18-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Changes in the proposal according to the peer review by <span class="co">[</span><span class="ot">nathanielcross04</span><span class="co">](https://github.com/nathanielcross04)</span> &amp; <span class="co">[</span><span class="ot">MattOsterhoudt</span><span class="co">](https://github.com/MattOsterhoudt)</span>, and also considered certain points that are to be taken care of as we work further in the project. <span class="pp">|</span></span>
+<span id="cb3-145"><a href="#cb3-145"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-146"><a href="#cb3-146"></a><span class="pp">|</span> Edit proposal according to instructor review <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-23-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Made changes to the questions and added hypotheses according to instructor review. Proposal file has been updated and all github issues created is moved to closed.                                                                                                       <span class="pp">|</span></span>
+<span id="cb3-147"><a href="#cb3-147"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-148"><a href="#cb3-148"></a><span class="pp">|</span> Cleaning the data, creating new variables    <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-23-2025 <span class="pp">|</span> Moderate Priority <span class="pp">|</span> -   Added code to clean the dataset                                                                                                                                                                                                                                           <span class="pp">|</span></span>
+<span id="cb3-149"><a href="#cb3-149"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-150"><a href="#cb3-150"></a><span class="pp">|</span> Creating draft plots for question 1          <span class="pp">|</span> Sravani            <span class="pp">|</span> Completed <span class="pp">|</span> 06-24-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Created a draft plot for both visualizations                                                                                                                                                                                                                              <span class="pp">|</span></span>
+<span id="cb3-151"><a href="#cb3-151"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-152"><a href="#cb3-152"></a><span class="pp">|</span> Creating draft plots for question 2          <span class="pp">|</span> Nilotpal           <span class="pp">|</span> Completed <span class="pp">|</span> 06-24-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Created a draft plot for both visualizations                                                                                                                                                                                                                              <span class="pp">|</span></span>
+<span id="cb3-153"><a href="#cb3-153"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-154"><a href="#cb3-154"></a><span class="pp">|</span> Discussion on prepared graph                 <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-25-2025 <span class="pp">|</span> Low Priority      <span class="pp">|</span> -   Made changes in visual approach                                                                                                                                                                                                                                           <span class="pp">|</span></span>
+<span id="cb3-155"><a href="#cb3-155"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-156"><a href="#cb3-156"></a><span class="pp">|</span> Clean up code, Improve graph                 <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 06-25-2025 <span class="pp">|</span> Moderate Priority <span class="pp">|</span> -   Added animation to visualization and                                                                                                                                                                                                                                      <span class="pp">|</span></span>
+<span id="cb3-157"><a href="#cb3-157"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span>                                                                                                                                                                                                                                                                               <span class="pp">|</span></span>
+<span id="cb3-158"><a href="#cb3-158"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span>     finalized headers and labels                                                                                                                                                                                                                                              <span class="pp">|</span></span>
+<span id="cb3-159"><a href="#cb3-159"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-160"><a href="#cb3-160"></a><span class="pp">|</span> Analyze and write-up visualization report    <span class="pp">|</span> Sravani            <span class="pp">|</span> Completed <span class="pp">|</span> 06-27-2025 <span class="pp">|</span> Moderate Priority <span class="pp">|</span> -   Write- ups completed                                                                                                                                                                                                                                                      <span class="pp">|</span></span>
+<span id="cb3-161"><a href="#cb3-161"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-162"><a href="#cb3-162"></a><span class="pp">|</span> Create PPT slides                            <span class="pp">|</span> Nilotpal           <span class="pp">|</span> Completed <span class="pp">|</span> 06-27-2025 <span class="pp">|</span> Moderate Priority <span class="pp">|</span> -   Presentation created and attached                                                                                                                                                                                                                                         <span class="pp">|</span></span>
+<span id="cb3-163"><a href="#cb3-163"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-164"><a href="#cb3-164"></a><span class="pp">|</span> Record presentation                          <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 07-01-2025 <span class="pp">|</span> High Priority     <span class="pp">|</span> -   Recorded presentation                                                                                                                                                                                                                                                     <span class="pp">|</span></span>
+<span id="cb3-165"><a href="#cb3-165"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-166"><a href="#cb3-166"></a><span class="pp">|</span> Submit final presentation                    <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 07-02-2025 <span class="pp">|</span> Low Priority      <span class="pp">|</span> -   Submit all files to github and publish                                                                                                                                                                                                                                    <span class="pp">|</span></span>
+<span id="cb3-167"><a href="#cb3-167"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span>                                                                                                                                                                                                                                                                               <span class="pp">|</span></span>
+<span id="cb3-168"><a href="#cb3-168"></a><span class="pp">|</span>                                              <span class="pp">|</span>                    <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span>                   <span class="pp">|</span> -   Include information in readme file                                                                                                                                                                                                                                        <span class="pp">|</span></span>
+<span id="cb3-169"><a href="#cb3-169"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span id="cb3-170"><a href="#cb3-170"></a><span class="pp">|</span> Final Project Submission                     <span class="pp">|</span> Nilotpal &amp; Sravani <span class="pp">|</span> Completed <span class="pp">|</span> 07-02-2025 <span class="pp">|</span> Low Priority      <span class="pp">|</span> -do-                                                                                                                                                                                                                                                                          <span class="pp">|</span></span>
+<span id="cb3-171"><a href="#cb3-171"></a>+----------------------------------------------+--------------------+-----------+------------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

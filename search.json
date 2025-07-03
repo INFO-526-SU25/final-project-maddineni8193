@@ -25,91 +25,84 @@
     "href": "proposal.html#questions",
     "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
     "section": "Questions",
-    "text": "Questions\nThe two questions you want to answer are:\nQuestion 1: How does the structural form of palm trees like stem height relate to their fruit traits such as size and visibility?\nQuestion 2: Do leaf and stem defense traits like spines on leaves or stems co-occur with climbing or erect growth habits?"
+    "text": "Questions\nThe two questions you want to answer are:\nQuestion 1: Which palm traits exhibit the most variability across species, and how do fruit traits (size and conspicuousness) relate to stem height?\nQuestion 2: Do defense traits like spines on leaves and stems co-occur with particular growth habits (climbing vs erect palms)?"
   },
   {
     "objectID": "proposal.html#analysis-plan",
     "href": "proposal.html#analysis-plan",
     "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
     "section": "Analysis plan",
-    "text": "Analysis plan\n\nApproach for question 1\nTo visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit is to potential animal dispersers. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.\nFirstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.\nThe violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.\nBy using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We’ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.\n\n\nApproach for question 2\nFor the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.\nWe begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.\nWe will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.\n\nThe Heatmap will have “climbing” on one axis and the “spine combination categories” on the other. The fill color of each cell will reflect the “frequency or relative proportion of species” within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.\n\nHeat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses."
+    "text": "Analysis plan\n\nApproach for question 1\nTraits related to reproduction (fruit size and visibility) are expected to show moderate to low variation, high variation for structural growth traits, and palms with larger or more conspicuous fruits will tend to be taller, potentially due to selective pressure for enhanced seed dispersal.\nFor trait variability assessment we will create visual summaries with ridge plots for numeric traits and bar plots for categorical traits. To visualize the structural form of palm trees and how they are related to their fruit size and visibility, we will be using violin plots to visualize the distribution of maximum stem height (max_stem_height_m) across categories of fruit size and color conspicuousness. The conspicuousness variable represents how visually noticeable a fruit. Including it helps explore whether more visually striking fruits are associated with taller trees that may rely on long-distance seed dispersal. This will help us to examine the independent variables like fruit traits related to dependent variables like maximum stem height. Here the structural form is treated as the outcome variable, while fruit traits are predictors in our visual analysis.\nFirstly, we start with filtering and cleaning the PlamTrait dataset, focus on key variables max_stem_height_m, fruit_size_categorical, and conspicuousness. We will remove any records with missing values and ensure categorical values are consistent.\nThe violin plot will display fruit_size_categorical on the x-axis and max_stem_height_m on the y-axis. We will fill the violins by the conspicuousness variable to add a second layer of categorical comparison. This will allow us to identify how palm height distributions differ across combinations of fruit size and visibility traits.\nBy using violin plots, we can observe the median heights and also the variability in height within each category. This design results in four combinations. We’ll ensure clarity in the plot by either separating violins with facetting or introducing one variable at a time This approach helps us in visualizing whether taller palms are more likely to produce larger or more conspicuous fruits, and helps reveal potential evolutionary or ecological strategies linked to display and dispersal.\n\n\nApproach for question 2\nClimbing palms are expected to exhibit fewer spine traits due to structural support from host plants, which may reduce herbivore exposure and the need for physical defenses.\nFor the second question we are using heatmap to visualize combination of spine traits and growth forms. This allows us to investiage defensive traits such as spines (armature) co-occur with certain growth habits (climbing vs non-climbing). The approach is ideal for categorical co-occurrence data.\nWe begin with filtering and cleaning of the PlamTrait dataset thereby retaining only the relevant variables that is climbing, leaves_armed, and stem_armed. Any missing or ambiguous entries will be excluded. We will standardize the categorical values for consistency (armed vs unarmed) and create a new variable representing each unique trait combination such as both armed, leaf only, stem only, unarmed.\nWe will then group the data by climbing status and the combination variable. Using dplyr, we’ll calculate the count of palm species in each category combination.\n\nThe Heatmap will have “climbing” on one axis and the “spine combination categories” on the other. The fill color of each cell will reflect the “frequency or relative proportion of species” within that category pairing. We then annotate the tiles with exact counts to show visual interpretation better.\n\nHeat map visualization will help us identify whether climbing palms are more or less likely to exhibit defensive traits compared to erect palms. The heatmap’s clear structure makes it easy to detect trait co-occurrence patterns and generate hypotheses about the evolutionary or functional relationships between growth form and physical defenses."
+  },
+  {
+    "objectID": "proposal.html#plan-of-attack",
+    "href": "proposal.html#plan-of-attack",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Plan of Attack",
+    "text": "Plan of Attack\n\n\n\nTask Name\nAssignee\nStatus\nDue\nPriority\nSummary\n\n\n\n\nPrepare proposal questions\nNilotpal & Sravani\nCompleted\n06-01-2025\nHigh Priority\n\nAnalysing all the datasets from 2025 Github repository.\nMake possible research questions out of those dataset.\n\n\n\nFinalize dataset & research questions\nNilotpal & Sravani\nCompleted\n06-09-2025\nHigh Priority\n\nSelected the dataset PalmTraits\nTwo research questions are finalized\n\n\n\nFinal Proposal Peer Review\nNilotpal & Sravani\nCompleted\n06-13-2025\nHigh Priority\n\nSravani peer reviewed “A Statistical Exploration of Himalayan Expeditions”.\nNilotpal peer reviewed “Crime in Arizona and Across the United States”.\n\n\n\nEdit proposal according to peer review\nNilotpal & Sravani\nCompleted\n06-18-2025\nHigh Priority\n\nChanges in the proposal according to the peer review by nathanielcross04 & MattOsterhoudt, and also considered certain points that are to be taken care of as we work further in the project.\n\n\n\nEdit proposal according to instructor review\nNilotpal & Sravani\nCompleted\n06-23-2025\nHigh Priority\n\nMade changes to the questions and added hypotheses according to instructor review. Proposal file has been updated and all github issues created is moved to closed.\n\n\n\nCleaning the data, creating new variables\nNilotpal & Sravani\nCompleted\n06-23-2025\nModerate Priority\n\nAdded code to clean the dataset\n\n\n\nCreating draft plots for question 1\nSravani\nCompleted\n06-24-2025\nHigh Priority\n\nCreated a draft plot for both visualizations\n\n\n\nCreating draft plots for question 2\nNilotpal\nCompleted\n06-24-2025\nHigh Priority\n\nCreated a draft plot for both visualizations\n\n\n\nDiscussion on prepared graph\nNilotpal & Sravani\nCompleted\n06-25-2025\nLow Priority\n\nMade changes in visual approach\n\n\n\nClean up code, Improve graph\nNilotpal & Sravani\nCompleted\n06-25-2025\nModerate Priority\n\nAdded animation to visualization and\nfinalized headers and labels\n\n\n\nAnalyze and write-up visualization report\nSravani\nCompleted\n06-27-2025\nModerate Priority\n\nWrite- ups completed\n\n\n\nCreate PPT slides\nNilotpal\nCompleted\n06-27-2025\nModerate Priority\n\nPresentation created and attached\n\n\n\nRecord presentation\nNilotpal & Sravani\nCompleted\n07-01-2025\nHigh Priority\n\nRecorded presentation\n\n\n\nSubmit final presentation\nNilotpal & Sravani\nCompleted\n07-02-2025\nLow Priority\n\nSubmit all files to github and publish\nInclude information in readme file\n\n\n\nFinal Project Submission\nNilotpal & Sravani\nCompleted\n07-02-2025\nLow Priority\n-do-"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
     "section": "",
-    "text": "Add project abstract here."
+    "text": "This project explores the ecological and morphological diversity of palm species using the PalmTraits 1.0 dataset, a comprehensive collection of trait data for 2,539 palm species curated by Kissling et al. (2019). By leveraging data visualization techniques in R with ggplot2 and related packages, we aim to uncover patterns and insights about trait variation across species, growth forms, and biogeographical regions."
   },
   {
-    "objectID": "index.html#abstract",
-    "href": "index.html#abstract",
+    "objectID": "index.html#introduction-1",
+    "href": "index.html#introduction-1",
     "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "",
-    "text": "Add project abstract here."
+    "section": "Introduction",
+    "text": "Introduction\nIn this part of the project, we focus on exploring how the structural form of palm trees, specifically their maximum stem height, relates to key reproductive traits: fruit size and fruit conspicuousness. We aim to investigate whether taller palms are more likely to produce larger and more visible fruits, which could be an adaptive strategy to improve seed dispersal by attracting animal disperses such as birds or mammals.\nTo conduct this analysis, we work with a subset of the PalmTraits dataset, focusing only on the variables relevant to our research question. We apply ridge plots to explore how palm height is distributed across different fruit size categories and levels of fruit conspicuousness. These plots help reveal whether there are noticeable differences in height between groups. In addition, we use a violin plot that combines both fruit size and conspicuousness, providing a more detailed view of how these two reproductive traits together relate to palm height. Visualizations allow us to identify potential patterns and ecological relationships between structural and reproductive traits in palms."
   },
   {
-    "objectID": "presentation.html#quarto",
-    "href": "presentation.html#quarto",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Quarto",
-    "text": "Quarto\n\nThe presentation is created using the Quarto CLI\n## sets the start of a new slide"
+    "objectID": "index.html#approach",
+    "href": "index.html#approach",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Approach",
+    "text": "Approach\nTo explore the relationship between palm height and fruit traits, we use a visual analysis approach based on the PalmTraits dataset. Specifically, we investigate how maximum stem height max_stem_height_m relates to two key fruit traits: fruit size fruit_size_categorical, categorized as small or large and fruit conspicuousness conspicuousness, categorized as cryptic or conspicuous)].\nWe begin by filtering the dataset to retain only the relevant variables and removing any records with missing values. This ensures that our analysis is based on clean, complete data. The three variables selected for this analysis—palm height, fruit size, and fruit conspicuousness—allow us to examine how reproductive traits may be associated with structural form.\nFor visual exploration, we use ridge plots to compare the height distributions across different fruit size and conspicuousness groups. These plots provide an intuitive way to observe whether taller palms tend to produce larger or more visible fruits. We also create a violin plot that combines fruit size and conspicuousness to examine how these traits interact with palm height. The violin plot provides additional insight into the distribution and variability of height within each trait combination."
   },
   {
-    "objectID": "presentation.html#layouts",
-    "href": "presentation.html#layouts",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Layouts",
-    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\nlike\nthis\n\nAnd add footnotes"
+    "objectID": "index.html#visualizations",
+    "href": "index.html#visualizations",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Visualizations",
+    "text": "Visualizations\nTo explore the relationship between palm height and fruit traits, we use ridge plots and a violin plot based on three key variables from the PalmTraits dataset: max_stem_height_m (maximum stem height), fruit_size_categorical (fruit size: small or large), and conspicuousness (fruit visibility: cryptic or conspicuous). The plots help reveal how palm height varies across different trait combinations.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSummary of Palm Height by Fruit Traits\n\n\n\n\n\n\n\n\n\nfruit_size_categorical\nconspicuousness\ncount\nmedian_height\nmean_height\n\n\n\n\nlarge\nconspicuous\n63\n15.0\n14.603175\n\n\nlarge\ncryptic\n141\n10.0\n12.167589\n\n\nsmall\nconspicuous\n591\n5.0\n9.654315\n\n\nsmall\ncryptic\n828\n8.5\n12.831860\n\n\n\n\n\n\nVisual outcomes\nThe ridge plots provide a clear visual comparison of how palm height varies with fruit size and fruit conspicuousness. In the first ridge plot, we observe that palms with large fruits tend to have greater stem heights compared to those with small fruits. The overall height distribution for large-fruited palms extends further, suggesting that larger fruits are more common in taller species.\nA similar pattern is visible in the second ridge plot, which focuses on fruit conspicuousness. Palms with conspicuous (bright and easily visible) fruits generally show higher stem heights than those with cryptic (dull) fruits. This indicates that palms producing more visible fruits may also be taller, possibly to improve fruit visibility for animal seed disperses.\nThe violin plot, which combines both fruit size and conspicuousness, provides additional insight into how these traits interact with palm height. The tallest palms in the dataset tend to belong to the group with large, conspicuous fruits. This group not only shows greater median heights but also higher variability in stem height, compared to palms with small or cryptic fruits.\n\n\nDiscussion\nThe results of our visual analysis reveal clear patterns suggesting that fruit traits and palm height are not independent but may be ecologically linked. The ridge plots show that palms with large fruits generally grow taller than those with small fruits. A similar pattern is observed for fruit conspicuousness, where palms producing conspicuous (bright, visible) fruits also tend to have greater stem heights compared to those with cryptic (dull) fruits. These trends support the idea that taller palms may invest in larger or more visible fruits as a reproductive strategy to enhance seed dispersal.\nThe violin plot further strengthens this interpretation by combining both fruit size and conspicuousness in a single visualization. It clearly shows that palms with large, conspicuous fruits have the tallest median stem heights and the widest distribution of heights. In contrast, palms with small or cryptic fruits tend to be shorter on average. This suggests that reproductive and structural traits in palms may evolve together to maximize the chances of successful seed dispersal, particularly in taller species."
   },
   {
-    "objectID": "presentation.html#code",
-    "href": "presentation.html#code",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Code",
-    "text": "Code\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
+    "objectID": "index.html#introduction-2",
+    "href": "index.html#introduction-2",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Introduction",
+    "text": "Introduction\nTo answer this question, we investigate whether the presence of defense traits spines on leaves and stems co-occurs with particular growth habits in palms. Specifically, we ask whether erect and climbing palms differ in their likelihood of having spines, and whether these spines tend to occur on leaves, stems, or both. We use the growth_form variable such as climbing, erect, mixed and two binary defense variables from the PalmTraits dataset, leaves_armed and stem_armed. We combine these into a single spine trait combination like both armed, leaf only, stem only, unarmed and visualize their co-occurrence using a heatmap. The heatmap displays the species count and proportion of each spine combination within each growth form category, helping to reveal patterns in how defense traits and growth forms are associated."
   },
   {
-    "objectID": "presentation.html#plots",
-    "href": "presentation.html#plots",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Plots",
-    "text": "Plots"
+    "objectID": "index.html#approach-1",
+    "href": "index.html#approach-1",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Approach",
+    "text": "Approach\nWe analyzed a subset of the PalmTraits dataset containing information on growth form and the presence of spines on leaves and stems. The focus is on three variables: growth_form (categorized as climbing, erect, or mixed), leaves_armed, and stem_armed, and removed any rows with missing data to ensure a complete dataset. Next, we combined the two defense traits into a single categorical variable representing four spine trait combinations: both armed, leaf only, stem only, and unarmed.\nWe then summarized the number of species and calculated the proportion of each spine trait combination within each growth form category to allow for proportional comparison across groups.\nFinally, we visualized these co-occurrence patterns using a heatmap that displays both the species count and proportion for each combination."
   },
   {
-    "objectID": "presentation.html#plot-and-text",
-    "href": "presentation.html#plot-and-text",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Plot and text",
-    "text": "Plot and text\n\n\n\nSome text\ngoes here"
+    "objectID": "index.html#visualization",
+    "href": "index.html#visualization",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Visualization",
+    "text": "Visualization\nTo explore the relationship between growth form and defense traits in palms, we use a heatmap based on three key variables from the PalmTraits dataset: growth_form (categorized as climbing, erect, or mixed), leaves_armed, and stem_armed. The two defense variables are combined into a single spine trait category (both armed, leaf only, stem only, unarmed), allowing us to summarize defense strategies."
   },
   {
-    "objectID": "presentation.html#tables",
-    "href": "presentation.html#tables",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Tables",
-    "text": "Tables\nIf you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale"
+    "objectID": "index.html#visual-outcomes-1",
+    "href": "index.html#visual-outcomes-1",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Visual Outcomes",
+    "text": "Visual Outcomes\nThe heatmap provides a clear visual summary of how defense traits co-occur with different growth forms in palms. Among climbing palms, the most common defense strategy is having spines on both leaves and stems, representing the majority of species in this growth form. In contrast, erect palms are most frequently armed only on the stem, with a much smaller proportion having spines on both leaves and stems. The mixed growth form group shows more balanced proportions across spine trait combinations but includes fewer species overall. These patterns suggest that climbing palms may rely on strong physical defenses across multiple parts of the plant, while erect palms may prioritize stem defenses, possibly reflecting differences in their ecological exposure and defense needs. Some spine and growth form combinations are rare or nearly absent. For example, almost no erect palms have both leaf and stem spines, and “Leaf Only” defence is uncommon in all growth forms."
   },
   {
-    "objectID": "presentation.html#images",
-    "href": "presentation.html#images",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Images",
-    "text": "Images\n\nImage credit: Danielle Navarro, Percolate."
-  },
-  {
-    "objectID": "presentation.html#math-expressions",
-    "href": "presentation.html#math-expressions",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Math Expressions",
-    "text": "Math Expressions\nYou can write LaTeX math expressions inside a pair of dollar signs, e.g. $\\alpha+\\beta$ renders \\(\\alpha + \\beta\\). You can use the display style with double dollar signs:\n$$\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i$$\n\\[\n\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i\n\\]\nLimitations:\n\nThe source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting $$ must appear in the very beginning of a line, followed immediately by a non-space character, and the ending $$ must be at the end of a line, led by a non-space character;\nThere should not be spaces after the opening $ or before the closing $."
-  },
-  {
-    "objectID": "presentation.html#feeling-adventurous",
-    "href": "presentation.html#feeling-adventurous",
-    "title": "Palms & Pots: Visualizing Trait Diversity in Palm Tree Dataset",
-    "section": "Feeling adventurous?",
-    "text": "Feeling adventurous?\n\nYou are welcomed to use the default styling of the slides. In fact, that’s what I expect majority of you will do. You will differentiate yourself with the content of your presentation.\nBut some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs."
+    "objectID": "index.html#discussion-1",
+    "href": "index.html#discussion-1",
+    "title": "Palms & Plots: Visualizing Trait Diversity in Palm Tree Dataset",
+    "section": "Discussion",
+    "text": "Discussion\nOur analysis shows that climbing palms are most likely to have spines on both leaves and stems, suggesting strong defense against herbivores. Erect palms more often have spines only on the stem, possibly reflecting their greater exposure. Some combinations, like unarmed climbing palms, are rare or absent, indicating certain defense-growth form pairings are uncommon. The mixed growth form palms show no clear defense pattern, but species counts are low. These patterns suggest that defense traits in palms are shaped by their growth form and ecological pressures.\n\nFuture Work\nFuture research could explore how the relationship between growth form and defense traits varies across different geographical regions and ecological environments. By integrating spatial data, such as the native range or habitat type of each species, we can investigate whether certain defense strategies are more common in specific continents, climates, or ecosystems."
   },
   {
     "objectID": "about.html",
