@@ -3,5 +3,7 @@
 
 Final Project repo for INFO 526 - Summer 2024.
 
-#### Disclosure:
-Derived from the original course by Mine Çetinkaya-Rundel @ Duke University
+Key notes about presentation:
+
+1. Presentation pdf has been added to the repository.
+2. Link to the presentation : https://arizona.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f4f9fab5-15c3-4e6e-990b-b30f004b432e
